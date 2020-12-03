@@ -1,8 +1,6 @@
-# Un
+# un.rb
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/un`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Utilities to replace common UNIX commands in Makefiles etc.
 
 ## Installation
 
@@ -22,7 +20,21 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+ruby -run -e cp -- [OPTION] SOURCE DEST
+ruby -run -e ln -- [OPTION] TARGET LINK_NAME
+ruby -run -e mv -- [OPTION] SOURCE DEST
+ruby -run -e rm -- [OPTION] FILE
+ruby -run -e mkdir -- [OPTION] DIRS
+ruby -run -e rmdir -- [OPTION] DIRS
+ruby -run -e install -- [OPTION] SOURCE DEST
+ruby -run -e chmod -- [OPTION] OCTAL-MODE FILE
+ruby -run -e touch -- [OPTION] FILE
+ruby -run -e wait_writable -- [OPTION] FILE
+ruby -run -e mkmf -- [OPTION] EXTNAME [OPTION]
+ruby -run -e httpd -- [OPTION] [DocumentRoot]
+ruby -run -e help [COMMAND]
+```
 
 ## Development
 
@@ -32,5 +44,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/hsbt/un.
+Bug reports and pull requests are welcome on GitHub at https://github.com/ruby/un.
 
