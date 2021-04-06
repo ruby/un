@@ -33,6 +33,7 @@ ruby -run -e touch -- [OPTION] FILE
 ruby -run -e wait_writable -- [OPTION] FILE
 ruby -run -e mkmf -- [OPTION] EXTNAME [OPTION]
 ruby -run -e httpd -- [OPTION] [DocumentRoot]
+ruby -run -e colorize -- FILE
 ruby -run -e help [COMMAND]
 ```
 
