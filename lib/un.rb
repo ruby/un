@@ -318,6 +318,7 @@ end
 #   --server-software=NAME      name and version of the server
 #   --ssl-certificate=CERT      The SSL certificate file for the server
 #   --ssl-private-key=KEY       The SSL private key file for the server certificate
+#   --cors                      Add CORS headers
 #   -v                          verbose
 #
 
@@ -325,7 +326,7 @@ def httpd
   setup("", "BindAddress=ADDR", "Port=PORT", "MaxClients=NUM", "TempDir=DIR",
         "DoNotReverseLookup", "RequestTimeout=SECOND", "HTTPVersion=VERSION",
         "ServerName=NAME", "ServerSoftware=NAME",
-        "SSLCertificate=CERT", "SSLPrivateKey=KEY") do
+        "SSLCertificate=CERT", "SSLPrivateKey=KEY", "Cors") do
     |argv, options|
     begin
       require 'webrick'
@@ -362,6 +363,18 @@ def httpd
         end
       end
     }
+    if options[:Cors]
+      options[:RequestCallback] = proc do |req, res|
+        res['access-control-allow-origin'] = req['origin'] || '*'
+        res['access-control-allow-credentials'] = true if req['origin']
+        if req.request_method == 'OPTIONS' # preflight
+          re = /^access-control-request-(method|headers|private-network)$/
+          req.header.keys.grep(re).each do |header|
+            res[header.sub('-request-', '-allow-')] = req[header]
+          end
+        end
+      end
+    end
     s = WEBrick::HTTPServer.new(options)
     shut = proc {s.shutdown}
     siglist = %w"TERM QUIT"
